@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <title>अन्तरक्रियात्मक क्विज</title>
+    <style>
+        .correct { background-color: #76ff03; font-weight: bold; }
+        .wrong { background-color: #ff5252; color: white; }
+        button { display: block; margin: 10px; padding: 10px; width: 200px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="quiz"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "नेपाल र भारत बिच सुगौली सन्धी कहिले भएको थियो ?",
+                options: ["1816 June 4", "1816 March 3", "1817 April 1", "1815 March 1"],
+                answer: 1
+            },
+            {
+                question: "तिम्रो नाम के हो ?",
+                options: ["राम", "श्याम", "हरi", "मोहन"],
+                answer: 0
+            },
+            {
+                question: "तिम्रो घर कहाँ हो ?",
+                options: ["कलैया", "वीरगन्ज", "राजविराज", "जनकपुर"],
+                answer: 3
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const q = questions[currentQuestionIndex];
+            let html = "<h1>" + q.question + "</h1>";
+
+            q.options.forEach((opt, index) => {
+                html += `<button onclick="checkAnswer(${index}, ${q.answer})">${opt}</button>`;
+            });
+
+            document.getElementById("quiz").innerHTML = html;
+        }
+
+        function checkAnswer(selectedIndex, correctIndex) {
+            const buttons = document.querySelectorAll("button");
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === correctIndex) {
+                    btn.classList.add("correct");
+                } else if (idx === selectedIndex) {
+                    btn.classList.add("wrong");
+                }
+            });
+            const resultMsg = selectedIndex === correctIndex ? "सहि उत्तर!" : "गलत उत्तर!";
+            alert(resultMsg);
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
